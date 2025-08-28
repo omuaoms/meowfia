@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>meowfia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Athiti:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Athiti', sans-serif; /* Default font for body */
+            background-color: #F8F8F8; /* Off-white background */
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Full viewport height */
+            transition: background-color 0.5s ease; /* Smooth background transition */
+        }
+
+        .main-title {
+            font-family: 'Athiti', sans-serif; /* Elegant font for main titles */
+            font-weight: 700;
+            font-size: 3em; /* Large size for impact */
+            color: #1A1A1A;
+            text-align: center;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .section-title {
+            font-family: 'Athiti', sans-serif;
+            font-weight: 700;
+            font-size: 2.5em;
+            color: #1A1A1A;
+            margin-bottom: 30px;
+        }
+
+        .tagline {
+            font-family: 'Athiti', sans-serif;
+            font-weight: 300;
+            font-size: 1.2em;
+            text-align: center;
+            color: #555;
+            margin-bottom: 40px;
+        }
+
+        /* Container for content */
+        .container {
+            background-color: #FFFFFF; /* Pure white content area */
+            font-family: 'Athiti', sans-serif;
+            border-radius: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+            padding: 40px;
+            max-width: 800px; /* Max width for readability */
+            width: 90%; /* Responsive width */
+            text-align: center;
+            box-sizing: border-box; /* Include padding in width */
+            display: none; /* Hidden by default, shown by JS */
+            opacity: 0; /* For fade-in animation */
+            transform: translateY(20px); /* For fade-in animation */
+        }
+
+        .container.active {
+            display: block; /* Show active container */
+        }
+
+        /* Fade-in animation */
+        .fade-in {
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Buttons */
+        .btn {
+            background-color: #1A1A1A; /* Dark button */
+            font-family: 'Athiti', sans-serif;
+            color: #FFFFFF;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-decoration: none; /* For link-like buttons */
+            display: inline-block; /* Allows padding and margin */
+        }
+
+        .btn:hover {
+            background-color: #333333; /* Slightly lighter on hover */
+            transform: translateY(-2px); /* Subtle lift effect */
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .responsive-img {
+            max-width: 100%;
+            height: auto;
+            display: block; /* Remove extra space below images */
+            margin: 0 auto; /* Center images */
+        }
+
+        footer {
+            margin-top: 40px;
+            font-family: 'Athiti', sans-serif;
+            font-size: 0.85em;
+            color: #777;
+        }
+
+        /* --- Home Page Specifics --- */
+        .home-page .cat-silhouette {
+            width: 60%;
+            max-width: 400px;
+            margin: 0 auto 30px auto;
+            opacity: 0.9;
+        }
+
+        .home-page .cat-silhouette img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .home-page .cat-silhouette img:hover {
+            transform: scale(1.03); /* Subtle hover effect */
+        }
+
+        .home-page .intro-text {
+            font-size: 1.1em;
+            color: #444;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        .home-actions {
+            margin-top: 20px; /* Only one button, so just margin */
+        }
+        .home-actions .btn {
+            min-width: 180px; /* Ensure buttons have a minimum width */
+        }
+
+
+        /* --- Instructions Page Specifics --- */
+        .instruction-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 30px auto;
+        }
+
+        .instruction-icon img {
+            width: 100%;
+            height: auto;
+            opacity: 0.8;
+        }
+
+        .instruction-list {
+            list-style: none; /* Remove default list style */
+            padding: 0;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+
+        .instruction-list li {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #EEE; /* Subtle separator */
+        }
+
+        .instruction-list li:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .instruction-list h3 {
+            font-family: 'Athiti', sans-serif;
+            font-weight: 600;
+            font-size: 1.3em;
+            color: #333;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .instruction-list h3::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #555;
+            border-radius: 8px;
+            margin-right: 10px;
+            transform: translateY(-1px);
+        }
+
+        .instruction-list p {
+            font-size: 1em;
+            color: #555;
+            line-height: 1.7;
+            padding-left: 18px; /* Align with bullet point */
+        }
+
+        .ready-text {
+            font-size: 1.15em;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 40px;
+        }
+
+        .instruction-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .centered {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .centered::before {
+            content: none !important; /* เอา bullet หน้าหัวข้อออก */
+        }
+
+        /* --- Question Page Specifics --- */
+        .question-page .container {
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            background-color: #E0E0E0;
+            border-radius: 8px;
+            height: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: #333333;
+            border-radius: 8px;
+            width: 0%; /* Controlled by JS */
+            transition: width 0.4s ease-in-out;
+        }
+
+        .question-counter {
+            font-size: 0.9em;
+            color: #777;
+            margin-bottom: 30px;
+            text-align: right;
+            padding-right: 5px;
+        }
+
+        .question-text {
+            font-family: 'Athiti', sans-serif;
+            font-weight: 600;
+            font-size: 1.8em;
+            color: #1A1A1A;
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+
+        .question-image-placeholder {
+            width: 70%;
+            max-width: 350px;
+            margin: 0 auto 35px auto;
+        }
+
+        .question-image-placeholder img {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .answer-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .answer-btn {
+            background-color: #F0F0F0; /* Light grey background */
+            color: #333;
+            border: 1px solid #CCC;
+            padding: 18px 25px;
+            font-size: 1.05em;
+            font-weight: 400;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .answer-btn:hover {
+            background-color: #E5E5E5;
+            border-color: #999;
+            transform: translateY(-1px);
+        }
+
+        .answer-btn:active {
+            background-color: #D5D5D5;
+            border-color: #777;
+            transform: translateY(0);
+        }
+
+        .answer-btn.selected {
+            background-color: #222; /* Darker when selected */
+            color: #FFF;
+            border-color: #222;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .answer-btn .option-label {
+            font-weight: 600;
+            margin-right: 12px;
+            color: #555; /* Default label color */
+        }
+
+        .answer-btn.selected .option-label {
+            color: #FFF; /* Label color changes when selected */
+        }
+
+        .quiz-navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 10px; /* Space between buttons */
+        }
+
+        .quiz-navigation-buttons .btn {
+            width: 48%; /* Adjust for spacing */
+            padding: 12px 20px;
+            font-size: 1em;
+        }
+
+        /* --- Result Page Specifics --- */
+        .result-page .section-title {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+        }
+
+        .result-cat-name {
+            font-family: 'Athiti', sans-serif;
+            font-weight: 700;
+            font-size: 3.5em;
+            color: #1A1A1A;
+            margin-bottom: 10px;
+        }
+
+        .result-tagline {
+            font-size: 1.3em;
+            font-weight: 400;
+            color: #555;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .result-image-container {
+            width: 90%;
+            max-width: 700px;
+            margin: 0 auto 40px auto;
+            border: 2px solid #EEE;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap; /* For responsive wrapping */
+        }
+
+        .share-btn {
+            background-color: #222; /* Monochrome alternative for share button */
+            color: #FFF;
+            display: inline-flex;
+            align-items: center;
+        }
+
+    
+        .share-btn:hover {
+            background-color: #333;
+        }
+
+        .icon-small {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            filter: invert(100%); /* Makes icon white */
+        }
+
+        .secondary-btn {
+            background-color: #F0F0F0;
+            color: #333;
+            border: 1px solid #BBB;
+        }
+
+        .secondary-btn:hover {
+            background-color: #E0E0E0;
+            border-color: #999;
+        }
+
+
+        /* Tablet */
+        @media (max-width: 768px) {
+            .main-title { font-size: 2em; }
+            .section-title { font-size: 1.8em; }
+            .tagline { font-size: 1em; }
+            .container { padding: 25px; width: 95%; }
+            .btn { padding: 12px 20px; font-size: 1em; }
+            .result-image-container { max-width: 500px; }
+            .question-text { font-size: 1.4em; }
+        }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+            .main-title { font-size: 1.6em; }
+            .section-title { font-size: 1.5em; }
+            .tagline { font-size: 0.9em; }
+            .container { padding: 20px; width: 100%; border-radius: 15px; }
+            .btn { width: 100%; font-size: 0.95em; padding: 12px; }
+            .result-image-container { max-width: 95%; }
+            .question-text { font-size: 1.2em; }
+            .answer-btn { font-size: 0.9em; padding: 12px 15px; }
+        }
+
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.2em;
+            }
+            .section-title {
+                font-size: 2em;
+            }
+            .tagline {
+                font-size: 1em;
+            }
+            .container {
+                padding: 25px;
+                width: 95%;
+            }
+            .btn {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+            .home-page .cat-silhouette {
+                width: 80%;
+            }
+            .instruction-icon {
+                width: 80px;
+                height: 80px;
+            }
+            .instruction-list h3 {
+                font-size: 1.2em;
+            }
+            .instruction-list p {
+                font-size: 0.95em;
+            }
+            .ready-text {
+                font-size: 1.05em;
+            }
+            .question-text {
+                font-size: 1.5em;
+            }
+            .answer-btn {
+                padding: 15px 20px;
+                font-size: 1em;
+            }
+            .question-image-placeholder {
+                width: 80%;
+            }
+            .result-page .section-title {
+                font-size: 2.2em;
+            }
+            .result-cat-name {
+                font-size: 2.8em;
+            }
+            .result-tagline {
+                font-size: 1.1em;
+            }
+            .result-image-container {
+                width: 90%;
+                max-width: 350px;
+            }
+            .result-description h3 {
+                font-size: 1.2em;
+            }
+            .result-description p {
+                font-size: 0.95em;
+            }
+            .result-actions {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .quiz-navigation-buttons .btn {
+                width: 100%;
+            }
+            .quiz-navigation-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .home-actions, .instruction-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 1.8em;
+            }
+            .section-title {
+                font-size: 1.8em;
+            }
+            .tagline {
+                font-size: 0.9em;
+            }
+            .home-page .intro-text {
+                font-size: 0.95em;
+            }
+            .instruction-icon {
+                width: 70px;
+                height: 70px;
+            }
+            .instruction-list h3 {
+                font-size: 1.1em;
+            }
+            .instruction-list p {
+                font-size: 0.9em;
+            }
+            .ready-text {
+                font-size: 1em;
+            }
+            .question-text {
+                font-size: 1.3em;
+            }
+            .answer-btn {
+                padding: 12px 18px;
+                font-size: 0.95em;
+            }
+            .answer-options {
+                gap: 10px;
+            }
+            .question-image-placeholder {
+                width: 90%;
+            }
+            .result-page .section-title {
+                font-size: 2em;
+            }
+            .result-cat-name {
+                font-size: 2.3em;
+            }
+            .result-tagline {
+                font-size: 1em;
+            }
+            .result-image-container {
+                width: 95%;
+                max-width: 300px;
+            }
+            .result-description h3 {
+                font-size: 1.1em;
+            }
+            .result-description p {
+                font-size: 0.9em;
+            }
+
+            /* ปุ่มบนมือถือ */
+            .btn {
+                width: 100%;
+                padding: 12px 15px;
+            }
+        }
+
+        /* ปุ่มปกติ */
+        .btn {
+            width: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container active" id="homePage">
+        <header>
+            <h1 class="main-title">WELCOME TO MEOWFIA!</h1>
+        </header>
+        <main>
+            <div class="cat-silhouette">
+                <img src="Logo.png" alt="โลโก้" class="responsive-img">
+            </div>
+            <p class="intro-text">
+                มาทดสอบกันว่าคุณเป็นแมวประเภทใด? 
+            </p>
+            <div class="home-actions">
+                <button id="startQuizBtn" class="btn primary-btn">start</button>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; meowfia-pcerxiii</p>
+        </footer>
+    </div>
+
+    <div class="container" id="instructionsPage">
+        <header>
+            <h2 class="section-title">LET'S TALKTALK</h2>
+        </header>
+        <main>
+            <div class="instruction-icon">
+                <img src="https://png.pngtree.com/png-clipart/20230805/original/pngtree-dog-or-cat-paw-print-walking-footprint-mammal-vector-picture-image_9676836.png" alt="ไอคอนรอยเท้าแมว" class="responsive-img icon">
+            </div>
+            
+            <!-- หัวข้อ -->
+            <h3 class="centered">สวัสดีค้าบบบ พวกเรากลุ่ม meowfia - CKK PCER13</h3>
+
+            <!-- รายการคำอธิบาย -->
+            <ol class="instruction-list">
+                <li>
+                    <p>✨ แบบทดสอบนี้จัดทำขึ้นเพื่อความบันเทิง ไม่ใช่การวิเคราะห์ทางจิตวิทยาน้าค้าบ</p>
+                </li>
+                <li>
+                    <p>😺 มาลองเล่นกันดูสิ ว่าถ้าเกิดคุณกลายเป็นแมวขึ้นมาจริงๆ คุณจะเป็นแมวสายไหนกันนะ?</p>
+                </li>
+                <li>
+                    <p>🐾 ตอบไปตามใจ อย่าเครียด คำตอบไหนตรงใจก็เลือกเลย</p>
+                </li>
+                <li>
+                    <p>💖 เล่นเสร็จแล้วสามารถแชร์ผลลัพธ์กับเพื่อนๆหรือติชมได้ค้าบ</p>
+                </li>
+                <li>
+                    <p> developer @zonet_nop @cchisntfu @jammi.sr</p>
+                    <p> special thanks @pphxwalanss_</p>
+                </li>
+            </ol>
+
+            <p class="ready-text">เราไปเริ่มกันเล้ย!</p>
+            <div class="instruction-actions">
+                <button id="startQuizNowBtn" class="btn primary-btn">gogo!</button>
+                <button id="backToHomeFromInstructionsBtn" class="btn secondary-btn">home</button>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; meowfia-pcerxiii </p>
+        </footer>
+    </div>
+
+    <div class="container" id="quizPage">
+        <header>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <p class="question-counter" id="questionCounter"></p>
+        </header>
+        <main>
+            <h2 class="question-text" id="questionText"></h2>
+            <div class="question-image-placeholder" id="questionImage">
+                </div>
+            <div class="answer-options" id="answerOptions">
+                </div>
+            <div class="quiz-navigation-buttons">
+                <button id="prevQuestionBtn" class="btn secondary-btn">back</button>
+                <button id="nextQuestionBtn" class="btn primary-btn">next</button>
+            </div>
+        </main>
+        </div>
+
+    <div class="container" id="resultPage">
+        <main>
+            <h1 class="result-cat-name" id="resultCatName"></h1>
+            <p class="result-tagline" id="resultTagline"></p>
+            
+            <div class="result-image-container">
+                <img src="" alt="รูปแมวสายพันธุ์ที่ได้" class="responsive-img result-cat-img" id="resultCatImage">
+            </div>
+
+            <div class="result-description" id="resultDescription">
+                </div>
+
+            <div class="result-actions">
+                <button class="btn primary-btn" id="retakeQuizBtn">play-again</button>
+                <!-- ปุ่มดาวน์โหลดรูป -->
+                <a id="downloadImageBtn" class="btn secondary-btn" download="my-cat.png">download image</a>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; meowfia-pcerxiii</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get page containers
+            const homePage = document.getElementById('homePage');
+            const instructionsPage = document.getElementById('instructionsPage');
+            const quizPage = document.getElementById('quizPage');
+            const resultPage = document.getElementById('resultPage');
+
+            // Get buttons
+            const startQuizBtn = document.getElementById('startQuizBtn');
+            const startQuizNowBtn = document.getElementById('startQuizNowBtn');
+            const backToHomeFromInstructionsBtn = document.getElementById('backToHomeFromInstructionsBtn');
+            const retakeQuizBtn = document.getElementById('retakeQuizBtn');
+            const prevQuestionBtn = document.getElementById('prevQuestionBtn');
+            const nextQuestionBtn = document.getElementById('nextQuestionBtn');
+
+            // Quiz elements
+            const questionCounter = document.getElementById('questionCounter');
+            const progressBar = document.getElementById('progressBar');
+            const questionText = document.getElementById('questionText');
+            const questionImage = document.getElementById('questionImage');
+            const answerOptionsDiv = document.getElementById('answerOptions');
+
+            // Result elements
+            const resultCatImage = document.getElementById('resultCatImage');
+
+            let currentQuestionIndex = 0;
+            let userAnswers = []; // Stores the DATA-VALUE (A, B, C) of the selected option for each question
+            
+            const catScores = { // Scores for each personality type, initialized to 0
+                persian: 0,
+                siamese: 0,
+                britishshorthair: 0,
+                americanshorthair: 0,
+                scottishfold: 0,
+                ragdoll: 0
+            };
+
+            // Define quiz questions and their impact on personality scores
+            const questions = [
+                {
+                    question: "คุณตื่นขึ้นมาแล้วพบว่าร่างกายของคุณกลายเป็นแมว สิ่งแรกที่คุณจะทำคือ?",
+                    image: "Logo.png", // Placeholder image
+                    options: [
+                        { text: "นอนต่อไป", value: "A", scores: { persian:1, ragdoll: 1 } },
+                        { text: "รู้สึกสนใจและเริ่มสำรวจรอบๆ", value: "B", scores: { britishshorthair: 1, americanshorthair: 1, siamese: 1 } },
+                        { text: "หาวิธีกลับสู่ร่างมนุษย์", value: "C", scores: { scottishfold: 1 } }
+                    ]
+                },
+                {
+                    question: "คุณเจอมนุษย์ที่เป็นเหมือนเจ้าของ ปฏิกิริยาของคุณคือ?",
+                    image: "Logo.png", // Placeholder image
+                    options: [
+                        { text: "ไม่สนใจและมองเฉยๆ", value: "A", scores: { persian: 1, britishshorthair: 1 } },
+                        { text: "พุ่งเข้าไปหาด้วยความเร็วแสง", value: "B", scores: { ragdoll: 1, siamese: 1} },
+                        { text: "ค่อยๆเดินเข้าไปอ้อน", value: "C", scores: { scottishfold: 1, americanshorthair: 1 } },
+                    ]
+                },
+                {
+                    question: "ได้เวลาอาหาร คุณจะ . .?",
+                    image: "Logo.png", // Placeholder image
+                    options: [
+                        { text: "นั่งรอคอยเงียบๆด้วยความตั้งใจ", value: "A", scores: { persian: 1, britishshorthair: 1 } },
+                        { text: "ส่งเสียงร้อง เพื่อบอกให้รีบๆสิ!", value: "B", scores: { siamese: 1, americanshorthair: 1 } },
+                        { text: "เดินเข้าไปพันแข้งพันขาเจ้าของ", value: "C", scores: { scottishfold: 1, ragdoll: 1 } }
+                    ]
+                },
+                {
+                    question: "ความรู้สึกตอนเจ้าของพาคุณออกไปพบปะเพื่อนแมวใหม่ๆ?",
+                    image: "Logo.png", // Placeholder image
+                    options: [
+                        { text: "ตื่นเต้นสุดๆ อยากรู้จักแล้ว", value: "A", scores: { scottishfold: 1, siamese: 1 } },
+                        { text: "อยากอยู่บ้านTT", value: "B", scores: { ragdoll: 1, persian: 1 } },
+                        { text: "ไม่ไปก็ดีไปก็ได้", value: "C", scores: { americanshorthair: 1, britishshorthair: 1 } }
+                    ]
+                },
+                {
+                    question: "เจ้าของชวนคุณมาเล่นด้วยกัน",
+                    image: "Logo.png", // Placeholder image
+                    options: [
+                        { text: "ม่ายเอา ม่ายเล่น", value: "A", scores: { persian: 1, britishshorthair: 1 } },
+                        { text: "ไปกันนน gogo!", value: "B", scores: { siamese: 1, americanshorthair: 1 } },
+                        { text: "เล่นด้วยนิดนึงก็ได้", value: "C", scores: { ragdoll: 1, scottishfold: 1 } }
+                    ]
+                },
+                {
+                    question: "ถึงเวลานอนแล้ว คุณจะเลือกนอนที่ไหน?",
+                    image: "Logo.png", // Placeholder image
+                    options: [
+                        { text: "นอนที่ประจำเงียบๆคนเดียว", value: "A", scores: { scottishfold: 1, britishshorthair: 1 } },
+                        { text: "นอนข้างๆเจ้าของ", value: "B", scores: { ragdoll: 1, persian: 1 } },
+                        { text: "อยากนอนตรงไหนก็นอนตรงนั้นแหละ", value: "C", scores: { americanshorthair: 1, siamese: 1 } }
+                    ]
+                }
+            ];
+
+            // Define personality profiles for each cat breed
+            const catPersonalities = {
+                persian: {
+                    image: "persian.png", // Placeholder image
+                },
+                siamese: {
+                    image: "siamese.png", // Placeholder image
+                },
+                britishshorthair: {
+                    image: "british.png", // Placeholder image
+                },
+                americanshorthair: {
+                    image: "american.png", // Placeholder image
+                },
+                scottishfold: {
+                    image: "scottish.png", // Placeholder image
+                },
+                ragdoll: {
+                    image: "ragdoll.png", // Placeholder image
+    
+                }
+            };
+
+            // --- Navigation Functions ---
+            function showPage(pageId) {
+                // Hide all containers
+                document.querySelectorAll('.container').forEach(container => {
+                    container.classList.remove('active', 'fade-in');
+                });
+
+                // Show the target page and add fade-in animation
+                const targetPage = document.getElementById(pageId);
+                if (targetPage) {
+                    targetPage.classList.add('active');
+                    // A small delay ensures the display:block applies before animation starts
+                    setTimeout(() => {
+                        targetPage.classList.add('fade-in');
+                    }, 50); 
+                }
+            }
+
+            // --- Quiz Logic ---
+            function loadQuestion() {
+                // Determine navigation logic based on currentQuestionIndex
+                // If trying to go back from the first question, go to instructions page
+                if (currentQuestionIndex < 0) {
+                    showPage('instructionsPage');
+                    currentQuestionIndex = 0; // Reset index for when they come back
+                    return;
+                }
+                // If past the last question, show result
+                if (currentQuestionIndex >= questions.length) { 
+                    showResult(); 
+                    return; 
+                }
+
+                const q = questions[currentQuestionIndex];
+                questionText.textContent = q.question;
+                questionCounter.textContent = `คำถามที่ ${currentQuestionIndex + 1}/${questions.length}`;
+                progressBar.style.width = `${((currentQuestionIndex + 1) / questions.length) * 100}%`;
+
+                questionImage.innerHTML = `<img src="${q.image}" alt="ภาพประกอบคำถาม" class="responsive-img">`;
+
+                answerOptionsDiv.innerHTML = ''; // Clear previous options
+
+                q.options.forEach((option, index) => {
+                    const button = document.createElement('button');
+                    button.classList.add('answer-btn');
+                    button.dataset.value = option.value; // Use the specific value (A, B, C)
+                    button.textContent = option.text;
+                    
+                    // If this option was previously selected, mark it as 'selected'
+                    if (userAnswers[currentQuestionIndex] === option.value) {
+                        button.classList.add('selected');
+                    }
+
+                    button.addEventListener('click', () => selectAnswer(option.value, button));
+                    answerOptionsDiv.appendChild(button);
+                });
+
+                // Update 'Next' button text
+                if (currentQuestionIndex === questions.length - 1) {
+                    nextQuestionBtn.textContent = 'show result';
+                } else {
+                    nextQuestionBtn.textContent = 'next';
+                }
+
+                showPage('quizPage');
+            }
+
+            function selectAnswer(selectedValue, selectedButton) {
+                // Remove 'selected' class from all buttons to ensure only one is selected
+                document.querySelectorAll('.answer-btn').forEach(btn => btn.classList.remove('selected'));
+                // Add 'selected' class to the clicked button
+                selectedButton.classList.add('selected');
+
+                // Store selected value for this question
+                userAnswers[currentQuestionIndex] = selectedValue; 
+            }
+            
+            function navigateQuestion(direction) {
+                // Only require selection when moving forward
+                if (direction === 1 && !userAnswers[currentQuestionIndex]) {
+                    alert('กรุณาเลือกคำตอบก่อนกด "ถัดไป" หรือ "ดูผลลัพธ์"');
+                    return;
+                }
+
+                currentQuestionIndex += direction;
+                loadQuestion();
+            }
+
+            function calculateResult() {
+                // Reset scores before calculating
+                for (const cat in catScores) {
+                    catScores[cat] = 0;
+                }
+
+                // Aggregate scores from user answers
+                userAnswers.forEach((selectedOptionValue, qIndex) => {
+                    if (selectedOptionValue) { // Ensure an answer was selected for this question
+                        const question = questions[qIndex];
+                        const selectedOption = question.options.find(opt => opt.value === selectedOptionValue);
+                        if (selectedOption && selectedOption.scores) {
+                            for (const cat in selectedOption.scores) {
+                                catScores[cat] += selectedOption.scores[cat];
+                            }
+                        }
+                    }
+                });
+
+                // Find the cat with the highest score
+                let highestScore = -1;
+                let resultCatKey = '';
+                // Handle tie-breaking: If multiple cats have the same highest score, 
+                // the first one encountered will be chosen.
+                for (const cat in catScores) {
+                    if (catScores[cat] > highestScore) {
+                        highestScore = catScores[cat];
+                        resultCatKey = cat;
+                    }
+                }
+                return resultCatKey;
+            }
+
+            function showResult() {
+                const resultCatKey = calculateResult();
+                const result = catPersonalities[resultCatKey];
+                resultCatImage.src = result.image;
+                // อัปเดตปุ่มดาวน์โหลดรูป
+                const downloadBtn = document.getElementById('downloadImageBtn');
+                downloadBtn.href = result.image; // ให้ลิงก์เป็นรูปแมว
+                downloadBtn.download = `${resultCatKey}.png`; // ตั้งชื่อไฟล์ตามประเภทแมว
+                showPage('resultPage');
+            }
+
+            // --- Reset Quiz State Function ---
+            function resetQuizState() {
+                currentQuestionIndex = 0;
+                userAnswers = new Array(questions.length).fill(null); // Reset answers
+                for (const cat in catScores) { // Reset scores
+                    catScores[cat] = 0;
+                }
+            }
+
+            // --- Event Listeners ---
+            startQuizBtn.addEventListener('click', () => {
+                showPage('instructionsPage'); // Go to instructions from home
+            });
+
+            startQuizNowBtn.addEventListener('click', () => {
+                resetQuizState(); // Reset before starting new quiz
+                loadQuestion(); // Go to first question
+            });
+
+            backToHomeFromInstructionsBtn.addEventListener('click', () => {
+                showPage('homePage'); // Go back to home from instructions
+            });
+
+            prevQuestionBtn.addEventListener('click', () => {
+                navigateQuestion(-1); // Handles going back to instructions if on Q1
+            });
+
+            nextQuestionBtn.addEventListener('click', () => {
+                navigateQuestion(1);
+            });
+
+            retakeQuizBtn.addEventListener('click', () => {
+                resetQuizState(); // Reset before starting new quiz
+                showPage('homePage'); // Go back to home page
+            });
+            
+            // Initial load: show home page when the script runs
+            showPage('homePage');
+        });
+    </script>
+</body>
+</html>
